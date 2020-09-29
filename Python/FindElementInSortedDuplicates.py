@@ -42,3 +42,49 @@ if __name__ == '__main__':
         ob = Solution()
         print(ob.findOnce(arr, n))
 # } Driver Code Ends
+
+########
+
+#### c Sharp solution
+################
+public class Solution {
+    public int SingleNonDuplicate(int[] nums) {
+        int lowIndex=0;
+        int highIndex = nums.Length -1;
+        
+        while(lowIndex < highIndex){
+            //check if index is odd or even
+            int midIndex = (lowIndex+highIndex)/2;
+            if (midIndex % 2 == 1) midIndex--;
+
+            // We didn't find a pair. The single element must be on the left.
+            // (pipes mean start & end)
+            // Example: |0 1 1 3 3 6 6|
+            //               ^ ^
+            // Next:    |0 1 1|3 3 6 6
+            if (nums[midIndex] != nums[midIndex + 1]) highIndex = midIndex;
+
+            // We found a pair. The single element must be on the right.
+            // Example: |1 1 3 3 5 6 6|
+            //               ^ ^
+            // Next:     1 1 3 3|5 6 6|
+            else lowIndex = midIndex + 2;
+        }
+        return nums[lowIndex];
+    }
+}
+
+################################
+#####c Sharp solution
+##########################
+public class Solution {
+    public int SingleNonDuplicate(int[] nums) {
+        
+        int res = nums[0];
+        for(int i = 1; i< nums.Length; i++){
+            res = res ^ nums[i];
+        }
+        return res;
+        
+    }
+}
